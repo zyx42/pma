@@ -5,8 +5,8 @@ import { createProject } from "../../actions/projectActions";
 import classnames from "classnames";
 
 class AddProject extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state={
             projectName: "",
@@ -21,7 +21,7 @@ class AddProject extends Component {
     }
 
     // life cycle hooks
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps, nextContext) {
         if (nextProps.errors) {
             this.setState({errors: nextProps.errors})
         }
