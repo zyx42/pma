@@ -1,26 +1,32 @@
-package org.eugenarium.pma.persistence.service;
+package org.eugenarium.pma.persistence.service.Impl;
 
+import org.eugenarium.pma.exceptions.ProjectIdException;
+import org.eugenarium.pma.exceptions.ProjectNotFoundException;
 import org.eugenarium.pma.persistence.domain.Backlog;
 import org.eugenarium.pma.persistence.domain.Project;
 import org.eugenarium.pma.persistence.domain.User;
 import org.eugenarium.pma.persistence.repository.BacklogRepository;
 import org.eugenarium.pma.persistence.repository.ProjectRepository;
 import org.eugenarium.pma.persistence.repository.UserRepository;
+import org.eugenarium.pma.persistence.service.ProjectService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ProjectService {
+@Transactional
+public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
     private final BacklogRepository backlogRepository;
     private final UserRepository userRepository;
 
-    public ProjectService(ProjectRepository projectRepository, BacklogRepository backlogRepository, UserRepository userRepository) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, BacklogRepository backlogRepository, UserRepository userRepository) {
         this.projectRepository = projectRepository;
         this.backlogRepository = backlogRepository;
         this.userRepository = userRepository;
     }
 
+    @Override
     public Project saveOrUpdateProject(Project project, String username) {
 
         if (project.getId() != null) {
@@ -58,6 +64,7 @@ public class ProjectService {
         }
     }
 
+    @Override
     public Project findProjectByIdentifier(String projectId, String username) {
 
         // Only want to return the project if the user looking for it is the owner
@@ -75,10 +82,12 @@ public class ProjectService {
         return project;
     }
 
+    @Override
     public Iterable<Project> findAllProject(String username) {
         return projectRepository.findAllByProjectLeader(username);
     }
 
+    @Override
     public void deleteProjectByIdentifier(String projectId, String username) {
         projectRepository.delete(findProjectByIdentifier(projectId, username));
     }
