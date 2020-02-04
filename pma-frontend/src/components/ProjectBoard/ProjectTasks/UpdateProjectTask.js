@@ -1,6 +1,16 @@
 import React, {Component} from 'react';
+import { connect } from "react-redux";
+import classnames from "classnames";
+import { getProjectTask } from "../../../actions/backlogActions";
+import PropTypes from "prop-types";
 
 class UpdateProjectTask extends Component {
+
+    componentDidMount() {
+        const { backlog_id, pt_id } = this.props.match.params;
+        this.props.getProjectTask(backlog_id, pt_id, this.props.history);
+    }
+
     render() {
         return (
             <div className="add-PBI">
@@ -65,4 +75,13 @@ class UpdateProjectTask extends Component {
     }
 }
 
-export default UpdateProjectTask;
+UpdateProjectTask.propTypes = {
+    getProjectTask: PropTypes.func.isRequired,
+    project_task: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    project_task: state.backlog.project_task
+});
+
+export default connect(mapStateToProps, { getProjectTask }) (UpdateProjectTask);
