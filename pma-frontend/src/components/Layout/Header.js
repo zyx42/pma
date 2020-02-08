@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
+import { Link } from "react-router-dom";
 
 class Header extends Component {
     render() {
         return (
            <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-4">
            <div className="container">
-               <a className="navbar-brand"
-                  href="Dashboard.html">
+               <Link className="navbar-brand"
+                  to="/">
                    Project Management Application
-               </a>
+               </Link>
                <button className="navbar-toggler"
                        type="button"
                        data-toggle="collapse"
@@ -20,19 +21,19 @@ class Header extends Component {
                     id="mobile-nav">
                    <ul className="navbar-nav mr-auto">
                        <li className="nav-item">
-                           <a className="nav-link"
-                              href="/dashboard">Dashboard</a>
+                           <Link className="nav-link"
+                                 to="/dashboard">Dashboard</Link>
                        </li>
                    </ul>
 
                    <ul className="navbar-nav ml-auto">
                        <li className="nav-item">
-                           <a className="nav-link"
-                              href="register.html">Sign Up</a>
+                           <Link className="nav-link"
+                                 to="/register">Sign Up</Link>
                        </li>
                        <li className="nav-item">
-                           <a className="nav-link"
-                              href="login.html">Login</a>
+                           <Link className="nav-link"
+                                 to="/login">Login</Link>
                        </li>
                    </ul>
                </div>

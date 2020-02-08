@@ -11,6 +11,9 @@ import UpdateProject from "./components/Project/UpdateProject";
 import ProjectBoard from "./components/ProjectBoard/ProjectBoard";
 import AddProjectTask from "./components/ProjectBoard/ProjectTasks/AddProjectTask";
 import UpdateProjectTask from "./components/ProjectBoard/ProjectTasks/UpdateProjectTask";
+import Landing from "./components/Layout/Landing";
+import Login from "./components/UserManagement/Login";
+import Register from "./components/UserManagement/Register";
 
 class App extends Component {
   render() {
@@ -19,17 +22,40 @@ class App extends Component {
             <Router>
                 <div className="App">
                     <Header/>
-                    <Route exact path="/dashboard"
+                    {
+                        // Public Routes
+                    }
+
+                    <Route exact
+                           path="/"
+                           component={Landing} />
+                    <Route exact
+                           path="/login"
+                           component={Login} />
+                    <Route exact
+                           path="/register"
+                           component={Register} />
+
+                    {
+                        // Private Routes
+                    }
+                    <Route exact
+                           path="/dashboard"
                            component={Dashboard}/>
-                    <Route exact path="/addProject"
+                    <Route exact
+                           path="/addProject"
                            component={AddProject}/>
-                    <Route exact path="/updateProject/:id"
+                    <Route exact
+                           path="/updateProject/:id"
                            component={UpdateProject}/>
-                    <Route exact path="projectBoard/:id"
+                    <Route exact
+                           path="/projectBoard/:id"
                            component={ProjectBoard}/>
-                    <Route exact path="/addProjectTask/:id"
+                    <Route exact
+                           path="/addProjectTask/:id"
                            component={AddProjectTask}/>
-                    <Route exact path="/updateProjectTask/:backlog_id/:pt_id"
+                    <Route exact
+                           path="/updateProjectTask/:backlog_id/:pt_id"
                            component={UpdateProjectTask}/>
                 </div>
             </Router>
