@@ -30,16 +30,16 @@ export const login = LoginRequest => async dispatch => {
         // set our token in the header
         setJWTToken(token);
         // decode token on React
-        const decoded = jwt_decode(token);
+        const decodedToken = jwt_decode(token);
         // dispatch to our securityReducer
         dispatch({
             type: SET_CURRENT_USER,
-            payload: decoded
+            payload: decodedToken
         });
     } catch (error) {
         dispatch({
             type: GET_ERRORS,
-            paylaod: error.response.data
+            payload: error.response.data
         });
     }
 };
