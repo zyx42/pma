@@ -9,7 +9,8 @@ class Login extends Component {
         super();
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            errors: {}
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -18,6 +19,10 @@ class Login extends Component {
     componentWillReceiveProps(nextProps, nextContext) {
         if (nextProps.security.validToken) {
             this.props.history.push("/dashboard");
+        }
+
+        if (nextProps.errors) {
+            this.setState({ errors: nextProps.errors });
         }
     }
 
@@ -38,6 +43,8 @@ class Login extends Component {
     }
 
     render() {
+        const { errors } = this.state;
+
         return (
             <div className="login">
                 <div className="container">
@@ -47,19 +54,29 @@ class Login extends Component {
                             <form onSubmit={this.onSubmit}>
                                 <div className="form-group">
                                     <input type="email"
-                                           className="form-control form-control-lg"
+                                           className={classnames("form-control form-control-lg", {
+                                               "is-invalid": errors.username
+                                           })}
                                            placeholder="Email Address"
                                            value={this.state.username}
                                            onChange={this.onChange}
                                            name="username" />
+                                    {errors.username && (
+                                        <div className="invalid-feedback">{errors.username}</div>
+                                    )}
                                 </div>
                                 <div className="form-group">
                                     <input type="password"
-                                           className="form-control form-control-lg"
+                                           className={classnames("form-control form-control-lg", {
+                                               "is-invalid": errors.password
+                                           })}
                                            placeholder="Password"
                                            value={this.state.password}
                                            onChange={this.onChange}
                                            name="password" />
+                                    {errors.password && (
+                                        <div className="invalid-feedback">{errors.password}</div>
+                                    )}
                                 </div>
                                 <input type="submit"
                                        className="btn btn-info btn-block mt-4" />
@@ -74,7 +91,8 @@ class Login extends Component {
 
 Login.propTypes = {
     login: PropTypes.func.isRequired,
-    errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired,
+    security: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
