@@ -1,5 +1,6 @@
 package org.eugenarium.pma.persistence.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -31,7 +32,7 @@ public class ProjectTask {
     @Column(name = "priority")
     private Integer priority;
 
-    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-mm-dd")
     @Column(name = "due_date")
     private Date dueDate;
 
@@ -43,12 +44,12 @@ public class ProjectTask {
     @Column(name = "project_identifier", updatable = false)
     private String projectIdentifier;
 
+    @JsonFormat(pattern = "yyyy-mm-dd")
     @Column(name = "created_date")
-    @Temporal(TemporalType.DATE)
     private Date createdDate;
 
+    @JsonFormat(pattern = "yyyy-mm-dd")
     @Column(name = "last_modified_date")
-    @Temporal(TemporalType.DATE)
     private Date lastModifiedDate;
 
     public ProjectTask() {}
